@@ -11,4 +11,16 @@ module Iokit
   extend FFI::Library
 
   ffi_lib "/System/Library/Frameworks/IOKit.framework/IOKit"
+
+  # rubocop:disable Style/Documentation
+  class IOUSBDevRequest < FFI::Struct
+    layout :bmRequestType, :uint8,
+           :bRequest,      :uint8,
+           :wValue,        :uint16,
+           :wIndex,        :uint16,
+           :wLength,       :uint16,
+           :pData,         :pointer,
+           :wLenDone,      :uint32
+  end
+  # rubocop:enable Style/Documentation
 end
