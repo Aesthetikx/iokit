@@ -2,6 +2,6 @@
 
 RSpec.describe Iokit do
   it "has a version number" do
-    expect(Iokit::VERSION).not_to be nil
+    expect(Iokit::VERSION).not_to be_nil
   end
 end
