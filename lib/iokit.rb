@@ -22,5 +22,13 @@ module Iokit
            :pData,         :pointer,
            :wLenDone,      :uint32
   end
+
+  typedef :uint32,      :mach_port_t
+  typedef :mach_port_t, :io_object_t
+  typedef :io_object_t, :io_registry_entry_t
+
+  attach_variable :kIOMasterPortDefault, :mach_port_t
+
+  attach_function :IORegistryGetRootEntry, [:mach_port_t], :io_registry_entry_t
   # rubocop:enable Style/Documentation
 end
