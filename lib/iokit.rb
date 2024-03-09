@@ -23,14 +23,19 @@ module Iokit
   ffi_lib "/System/Library/Frameworks/IOKit.framework/IOKit"
 
   # rubocop:disable Layout/LineLength, Style/SymbolArray
-  typedef :uint32,      :mach_port_t
-  typedef :mach_port_t, :io_object_t
-  typedef :io_object_t, :io_registry_entry_t
-  typedef :io_object_t, :io_iterator_t
-  typedef :io_object_t, :io_service_t
-  typedef :int,         :kern_return_t
-  typedef :uint32,      :IOOptionBits
-  typedef :string,      :io_name_t
+  typedef :uint32,        :mach_port_t
+  typedef :mach_port_t,   :io_object_t
+  typedef :io_object_t,   :io_registry_entry_t
+  typedef :io_object_t,   :io_iterator_t
+  typedef :io_object_t,   :io_service_t
+  typedef :int,           :kern_return_t
+  typedef :kern_return_t, :IOReturn
+  typedef :uint32,        :IOOptionBits
+  typedef :string,        :io_name_t
+  typedef :int32,         :HRESULT
+  typedef :uint32,        :ULONG
+  typedef :pointer,       :LPVOID
+  typedef :pointer,       :cf_dictionary_ref
 
   cf_uuid_ref = CoreFoundation::CFUUIDBytes.by_ref
 
@@ -49,6 +54,18 @@ module Iokit
            :wLength,       :uint16,
            :pData,         :pointer,
            :wLenDone,      :uint32
+  end
+
+  class IOCFPluginInterfaceStruct < FFI::Struct
+    layout :_reserved,      :pointer,
+           :QueryInterface, callback([:pointer, CoreFoundation::CFUUIDBytes.by_value, :LPVOID], :HRESULT),
+           :AddRef,         callback([:pointer], :ULONG),
+           :Release,        callback([:pointer], :ULONG),
+           :version,        :uint16,
+           :revision,       :uint16,
+           :Probe,          callback([:pointer, :cf_dictionary_ref, :io_service_t, :pointer], :IOReturn),
+           :Start,          callback([:pointer, :cf_dictionary_ref, :io_service_t], :IOReturn),
+           :Stop,           callback([:pointer], :IOReturn)
   end
 
   attach_function :IORegistryGetRootEntry, [:mach_port_t], :io_registry_entry_t
