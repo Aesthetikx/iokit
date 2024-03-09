@@ -2,12 +2,15 @@ PATH
   remote: .
   specs:
     iokit (0.1.0)
+      core_foundation (~> 0.1)
       ffi (~> 1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    core_foundation (0.1.1)
+      ffi (~> 1)
     diff-lcs (1.5.1)
     ffi (1.16.3)
     json (2.7.1)
