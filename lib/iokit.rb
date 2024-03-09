@@ -55,5 +55,6 @@ module Iokit
   attach_function :IORegistryEntryCreateIterator, [:io_registry_entry_t, :io_name_t, :IOOptionBits, :pointer], :kern_return_t
   attach_function :IOIteratorNext, [:io_iterator_t], :io_object_t
   attach_function :IOCreatePlugInInterfaceForService, [:io_service_t, cf_uuid_ref, cf_uuid_ref, :pointer, :pointer], :kern_return_t
+  attach_function :IOObjectRelease, [:io_object_t], :kern_return_t
   # rubocop:enable Layout/LineLength, Style/SymbolArray
 end
